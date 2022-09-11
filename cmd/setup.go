@@ -10,13 +10,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mdbraber/acmeproxy/acmeproxy"
-	aplog "github.com/mdbraber/acmeproxy/log"
+	"github.com/Thijn/acmeproxy/acmeproxy"
+	aplog "github.com/Thijn/acmeproxy/log"
 	"github.com/mholt/certmagic"
 	log "github.com/sirupsen/logrus"
-	"github.com/go-acme/lego/v3/certcrypto"
-	xlog "github.com/go-acme/lego/v3/log"
-	"github.com/go-acme/lego/v3/providers/dns"
+	"github.com/go-acme/lego/v4/certcrypto"
+	xlog "github.com/go-acme/lego/v4/log"
+	"github.com/go-acme/lego/v4/providers/dns"
 	"gopkg.in/urfave/cli.v1"
 )
 

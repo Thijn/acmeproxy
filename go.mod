@@ -8,7 +8,7 @@ require (
 	github.com/codeskyblue/realip v0.1.0
 	// github.com/go-acme/lego v2.7.2+incompatible
 	github.com/go-acme/lego/v4 v4.8.0
-	github.com/mdbraber/acmeproxy v0.0.0-20200517094015-03851d189e85
+	github.com/Thijn/acmeproxy v0.0.0-20220911140619-d15e47d1399b
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
 	github.com/mholt/certmagic v0.8.3
 	github.com/orange-cloudfoundry/ipfiltering v0.0.0-20170823192147-f48f1b767f82

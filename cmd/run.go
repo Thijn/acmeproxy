@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/mdbraber/acmeproxy/acmeproxy"
+	"github.com/Thijn/acmeproxy/acmeproxy"
 	"gopkg.in/urfave/cli.v1"
 )
 

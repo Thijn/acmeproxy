@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/go-acme/lego/v3/challenge"
+	"github.com/go-acme/lego/v4/challenge"
 	"gopkg.in/urfave/cli.v1"
 )
 

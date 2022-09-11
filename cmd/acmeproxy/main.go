@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"sort"
 
-	"github.com/mdbraber/acmeproxy/cmd"
+	"github.com/Thijn/acmeproxy/cmd"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/urfave/cli.v1"
 	"gopkg.in/urfave/cli.v1/altsrc"
