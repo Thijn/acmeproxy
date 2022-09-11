@@ -23,4 +23,4 @@ require (
 	gopkg.in/urfave/cli.v1 v1.20.0
 )
 
-replace github.com/go-acme/lego/v4 v4.8.0 => ../lego
+replace github.com/go-acme/lego/v4 v4.8.0 => github.com/Thijn/lego/v4 v4.8.0
