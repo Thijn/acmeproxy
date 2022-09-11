@@ -6,7 +6,6 @@ RUN apk --update upgrade \
 
 WORKDIR /go/src/github.com/Thijn/acmeproxy
 COPY . .
-RUN git clone https://github.com/Thijn/lego.git /go/src/github.com/Thijn/lego
 RUN make build
 
 FROM alpine:3.8
