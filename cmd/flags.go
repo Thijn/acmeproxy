@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/mholt/certmagic"
+	"github.com/caddyserver/certmagic"
 	"gopkg.in/urfave/cli.v1"
 	"gopkg.in/urfave/cli.v1/altsrc"
 )

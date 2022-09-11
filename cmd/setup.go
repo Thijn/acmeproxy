@@ -3,6 +3,7 @@ package cmd
 import (
 	"crypto/tls"
 	golog "log"
+
 	//"net"
 	"net/http"
 	"os"
@@ -12,11 +13,9 @@ import (
 
 	"github.com/Thijn/acmeproxy/acmeproxy"
 	aplog "github.com/Thijn/acmeproxy/log"
-	"github.com/mholt/certmagic"
-	log "github.com/sirupsen/logrus"
-	"github.com/go-acme/lego/v4/certcrypto"
-	xlog "github.com/go-acme/lego/v4/log"
+	"github.com/caddyserver/certmagic"
 	"github.com/go-acme/lego/v4/providers/dns"
+	log "github.com/sirupsen/logrus"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -152,45 +151,8 @@ func newHttpServer(ctx *cli.Context) *http.Server {
 		tlsConfig.Certificates = []tls.Certificate{tlsCert}
 		server.TLSConfig = tlsConfig
 	case SSLModeAuto:
-		log.Info("Setting up server using SSL (certmagic)")
+		log.Info("SSL (Auto) NOT SUPPORTED")
 
-		salog := log.WithField("prefix", "ssl.auto")
-		xlog.Logger = salog
-
-		cmProvider, err := dns.NewDNSChallengeProviderByName(ctx.GlobalString("ssl.auto.provider"))
-		if err != nil {
-			salog.WithField("error", err.Error()).Fatal("Unable to connect to a valid DNS provider for ssl.auto")
-		}
-
-		// FIXME check for errors with FileStorage?
-		certmagic.Default.Storage = &certmagic.FileStorage{Path: ctx.GlobalString("ssl.auto.path")}
-
-		cache := certmagic.NewCache(certmagic.CacheOptions{
-			GetConfigForCert: func(cert certmagic.Certificate) (certmagic.Config, error) {
-				// do whatever you need to do to get the right
-				// configuration for this certificate; keep in
-				// mind that this config value is used as a
-				// template, and will be completed with any
-				// defaults that are set in the Default config
-				return certmagic.Config{}, nil
-			},
-		})
-
-		magic := certmagic.New(cache, certmagic.Config{
-			CA: ctx.GlobalString("ssl.auto.ca"),
-			Email: getEmail(ctx),
-			Agreed: ctx.GlobalBool("ssl.auto.agreed"),
-			KeyType: getKeyType(ctx),
-			DNSProvider: cmProvider,
-			DisableHTTPChallenge: true,
-			DisableTLSALPNChallenge: true,
-		})
-
-		magicErr := magic.ManageSync([]string{ctx.GlobalString("interface")})
-		if magicErr != nil {
-			salog.WithField("error", magicErr.Error()).Fatal("Problem setting up certificates for ssl.auto")
-		}
-		server.TLSConfig = magic.TLSConfig()
 	default:
 		log.Info("Setting up server (HTTP)")
 	}
@@ -200,19 +162,15 @@ func newHttpServer(ctx *cli.Context) *http.Server {
 }
 
 // getKeyType the type from which private keys should be generated
-func getKeyType(ctx *cli.Context) certcrypto.KeyType {
+func getKeyType(ctx *cli.Context) certmagic.KeyType {
 	keyType := ctx.GlobalString("ssl.auto.key-type")
 	switch strings.ToUpper(keyType) {
 	case "RSA2048":
-		return certcrypto.RSA2048
+		return certmagic.RSA2048
 	case "RSA4096":
-		return certcrypto.RSA4096
+		return certmagic.RSA4096
 	case "RSA8192":
-		return certcrypto.RSA8192
-	case "EC256":
-		return certcrypto.EC256
-	case "EC384":
-		return certcrypto.EC384
+		return certmagic.RSA8192
 	}
 
 	log.Fatalf("Unsupported KeyType: %s", keyType)
