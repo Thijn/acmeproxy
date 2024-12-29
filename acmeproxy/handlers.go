@@ -235,6 +235,7 @@ func ActionHandler(action string, config *Config) http.Handler {
 				alog.WithFields(log.Fields{
 					"provider": config.ProviderName,
 					"mode":     mode,
+                                        "ok":       ok,
 				}).Debug("Provider does not support requested mode")
 				return
 			}
