@@ -6,6 +6,7 @@ RUN apk --update upgrade \
 
 WORKDIR /go/src/github.com/Thijn/acmeproxy
 COPY . .
+RUN go mod tidy
 RUN make build
 
 FROM alpine:3.8
